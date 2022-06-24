@@ -16,7 +16,7 @@ coupled to chromatography (liquid LC, but can also be gas-based GC). The
 time an analyte takes to elute from the chromatography column is the
 *retention time*.
 
-<img src="img/chromatogram.png" alt="A chromatogram, illustrating the total amount of analytes over the retention time." width="100%" />
+<img src="https://github.com/rformassspectrometry/docs/raw/main/img/chromatogram.png" alt="A chromatogram, illustrating the total amount of analytes over the retention time." width="100%" />
 <p class="caption">A chromatogram, illustrating the total amount of
 analytes over the retention time.</p>
 
@@ -54,7 +54,7 @@ can then be used to infer the peptide sequence using de novo sequencing
 such as, for example Mascot, MSGF+, …, that will match the observed,
 experimental spectrum to theoretical spectra (see details below).
 
-<img src="img/SchematicMS2.png" alt="Schematics of a mass spectrometer and two rounds of MS." width="100%" />
+<img src="https://github.com/rformassspectrometry/docs/raw/main/img/SchematicMS2.png" alt="Schematics of a mass spectrometer and two rounds of MS." width="100%" />
 <p class="caption">Schematics of a mass spectrometer and two rounds of
 MS.</p>
 
@@ -63,7 +63,7 @@ different M/Z values) are separated throughout the MS analysis and are
 eventually detected (i.e. quantified). The final frame shows the
 hypothetical spectrum.
 
-<img src="img/mstut.gif" alt="Separation and detection of ions in a mass spectrometer." width="100%" />
+<img src="https://github.com/rformassspectrometry/docs/raw/main/img/mstut.gif" alt="Separation and detection of ions in a mass spectrometer." width="100%" />
 <p class="caption">Separation and detection of ions in a mass
 spectrometer.</p>
 
@@ -74,7 +74,7 @@ MS2 analysis. The peak at M/Z 460.79 (488.8) is highlighted by a red
 (orange) vertical line on the MS1 spectrum and the fragment spectra are
 shown on the MS2 spectrum on the top (bottom) right figure.
 
-<img src="img/MS1-MS2-spectra.png" alt="Parent ions in the MS1 spectrum (left) and two sected fragment ions MS2 spectra (right)" width="100%" />
+<img src="https://github.com/rformassspectrometry/docs/raw/main/img/MS1-MS2-spectra.png" alt="Parent ions in the MS1 spectrum (left) and two sected fragment ions MS2 spectra (right)" width="100%" />
 <p class="caption">Parent ions in the MS1 spectrum (left) and two sected
 fragment ions MS2 spectra (right)</p>
 
@@ -82,10 +82,10 @@ The figures below represent the 3 dimensions of MS data: a set of
 spectra (M/Z and intensity) of retention time, as well as the
 interleaved nature of MS1 and MS2 (and there could be more levels) data.
 
-<img src="img/F02-3D-MS1-scans-400-1200-lattice.png" alt="MS1 spectra over retention time." width="100%" />
+<img src="https://github.com/rformassspectrometry/docs/raw/main/img/F02-3D-MS1-scans-400-1200-lattice.png" alt="MS1 spectra over retention time." width="100%" />
 <p class="caption">MS1 spectra over retention time.</p>
 
-<img src="img/F02-3D-MS1-MS2-scans-100-1200-lattice.png" alt="MS2 spectra interleaved between two MS1 spectra." width="100%" />
+<img src="https://github.com/rformassspectrometry/docs/raw/main/img/F02-3D-MS1-MS2-scans-100-1200-lattice.png" alt="MS2 spectra interleaved between two MS1 spectra." width="100%" />
 <p class="caption">MS2 spectra interleaved between two MS1 spectra.</p>
 
 ### Accessing data
