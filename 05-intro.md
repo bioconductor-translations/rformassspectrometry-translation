@@ -93,17 +93,17 @@ interleaved nature of MS1 and MS2 (and there could be more levels) data
 #### From the ProteomeXchange database
 
 MS-based proteomics data is disseminated through the
-[ProteomeXchange](http://wwwproteomexchangeorg/) infrastructure, which
+[ProteomeXchange](http://www.proteomexchange.org/) infrastructure, which
 centrally coordinates submission, storage and dissemination through
 multiple data repositories, such as the [PRoteomics IDEntifications
-(PRIDE)](https://wwwebiacuk/pride/archive/) database at the EBI for
+(PRIDE)](https://www.ebi.ac.uk/pride/archive/) database at the EBI for
 mass spectrometry-based experiments (including quantitative data, as
 opposed as the name suggests),
-[PASSEL](http://wwwpeptideatlasorg/passel/) at the ISB for Selected
+[PASSEL](http://www.peptideatlas.org/passel/) at the ISB for Selected
 Reaction Monitoring (SRM, ie targeted) data and the
-[MassIVE](http://massiveucsdedu/ProteoSAFe/static/massivejsp)
+[MassIVE](http://massive.ucsd.edu/ProteoSAFe/static/massive.jsp)
 resource These data can be downloaded within R using the
-*[rpx](https://bioconductororg/packages/315/rpx)* package
+*[rpx](https://bioconductor.org/packages/3.15/rpx)* package
 
     library("rpx")
 
@@ -171,7 +171,7 @@ in the `mzf` variable for later use [3]
 #### Data packages
 
 Some data are also distributed through dedicated packages The
-*[msdata](https://bioconductororg/packages/315/msdata)*, for example,
+*[msdata](https://bioconductor.org/packages/3.15/msdata)*, for example,
 provides some general raw data files relevant for both proteomics and
 metabolomics
 
@@ -197,7 +197,7 @@ metabolomics
 
 More often, such *experiment packages* distribute processed data; an
 example of such is the
-*[pRolocdata](https://bioconductororg/packages/315/pRolocdata)*
+*[pRolocdata](https://bioconductor.org/packages/3.15/pRolocdata)*
 package, that offers quantitative proteomics data
 
 [1] Here, we will focus on data dependent acquisition (DDA), where MS1
