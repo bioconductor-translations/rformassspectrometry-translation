@@ -9,7 +9,7 @@
 
 ### Como funciona a espectrometria de massa?
 
-A espectrometria em massa (EM) é uma tecnologia que *separa as* moléculas carregadas (iões) com base na sua relação massa/carga (M/Z). It is often coupled to chromatography (liquid LC, but can also be gas-based GC). The time an analyte takes to elute from the chromatography column is the *retention time*.
+A espectrometria em massa (EM) é uma tecnologia que *separa as* moléculas carregadas (iões) com base na sua relação massa/carga (M/Z). É frequentemente acoplada à cromatografia (liquid LC, mas também pode ser baseada em gás GC). O o tempo que um analito leva a eluir da coluna de cromatografia é o *retention time*.
 
 <img src="https://github.com/rformassspectrometry/docs/raw/main/img/chromatogram.png" alt="A chromatogram, illustrating the total amount of analytes over the retention time." width="100%" />
 
