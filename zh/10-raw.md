@@ -1,31 +1,31 @@
-## Contents
+## 目录
 {:.no_toc}
 
--   [What is raw data in R](#what-is-raw-data-in-r)
-    -   [The `Spectra` class](#the-spectra-class)
-    -   [`Spectra` from mzML files](#spectra-from-mzml-files)
-    -   [Backends](#backends)
--   [Visualisation of raw MS data](#visualisation-of-raw-ms-data)
--   [Raw data processing and manipulation](#raw-data-processing-and-manipulation)
--   [A note on efficiency](#a-note-on-efficiency)
-    -   [Backends](#backends-1)
-    -   [Parallel processing](#parallel-processing)
-    -   [Lazy evaluation](#lazy-evaluation)
-{:toc} \# Raw MS data {#sec-raw}
+-   [R中的原始数据是什么](#what-is-raw-data-in-r)
+    -   [`Spectra` 类](#the-spectra-class)
+    -   [`来自 mzML 文件的 Spectra类`](#spectra-from-mzml-files)
+    -   [后端](#backends)
+-   [质谱原始数据的可视化](#visualisation-of-raw-ms-data)
+-   [原始数据处理和 操作](#raw-data-processing-and-manipulation)
+-   [关于效率的说明](#a-note-on-efficiency)
+    -   [后端](#backends-1)
+    -   [并行处理](#parallel-processing)
+    -   [延迟计算](#lazy-evaluation)
+{:toc} \# 质谱原始数据 {#sec-raw}
 
-In this section, we will learn how to read raw data in one of the commonly used open formats (`mzML`, `mzXML` and `netCDF`) into R.
+在本节中，我们将学习如何以 常用的开放格式之一(`mzML`， `mzXML` 和 `netCDF`) 读取原始数据到R环境.
 
-    |Data type  |File format   |Data structure               |Package           |
+    |数据类型|文件格式|数据结构|软件包|
     |:----------|:-------------|:----------------------------|:-----------------|
-    |Raw        |mzXML or mzML |mzRpwiz or mzRramp           |mzR               |
-    |Raw        |mzXML or mzML |list of MassSpectrum objects |MALDIquantForeign |
-    |Raw        |mzXML or mzML |MSnExp                       |MSnbase           |
-    |Peak lists |mgf           |MSnExp                       |MSnbase           |
-    |Raw        |several       |Spectra                      |Spectra           |
+    |原始|mzXML或mzML |mzRpwiz 或mzRramp           |mzR               |
+    |原始|mzXML 或 mzML |MassSpectrum 对象列表|MALDIquantForeign |
+    |原始|mzXML 或 mzML |MSnExp                       |MSnbase           |
+    |峰列表 |mgf           |MSnExp                       |MSnbase           |
+    |原始|多个|Spectra                      |Spectra           |
 
-### What is raw data in R
+### R中的原始数据是什么
 
-When we manipulate complex data, we need a way to abstract it.
+当我们操作复杂的数据时，我们需要有一种方法来简化复杂的数据。
 
 The abstraction saves us from having to know about all the details of that data **and** its associated metadata. In R, we think of MS data as illustrated on the figure below (taken from \[@Gatto:2020\]): a metadata table and a set of raw spectra. This allows to rely on a few easy-to-remember conventions to make mundane and repetitive tasks trivial and be able to complete more complex things easily. Abstractions provide a smoother approach to handle complex data using common patterns.
 
