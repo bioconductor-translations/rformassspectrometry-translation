@@ -1,15 +1,15 @@
-## Contents
+## Conteúdo
 {:.no_toc}
 
--   [How does mass spectrometry work?](#how-does-mass-spectrometry-work)
--   [Accessing data](#accessing-data)
-    -   [From the ProteomeXchange database](#from-the-proteomexchange-database)
-    -   [Data packages](#data-packages)
-{:toc} \# Introduction {#sec-msintro}
+-   [Como funciona a espectrometria de massa?](#how-does-mass-spectrometry-work)
+-   [Acesso a dados](#accessing-data)
+    -   [Da base de dados ProteomeXChange](#from-the-proteomexchange-database)
+    -   [Packages de dados](#data-packages)
+{:toc} \# Introdução {#sec-msintro}
 
-### How does mass spectrometry work?
+### Como funciona a espectrometria de massa?
 
-Mass spectrometry (MS) is a technology that *separates* charged molecules (ions) based on their mass to charge ratio (M/Z). It is often coupled to chromatography (liquid LC, but can also be gas-based GC). The time an analyte takes to elute from the chromatography column is the *retention time*.
+A espectrometria em massa (EM) é uma tecnologia que *separa as* moléculas carregadas (iões) com base na sua relação massa/carga (M/Z). It is often coupled to chromatography (liquid LC, but can also be gas-based GC). The time an analyte takes to elute from the chromatography column is the *retention time*.
 
 <img src="https://github.com/rformassspectrometry/docs/raw/main/img/chromatogram.png" alt="A chromatogram, illustrating the total amount of analytes over the retention time." width="100%" />
 
