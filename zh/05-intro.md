@@ -1,7 +1,7 @@
-## Contents
+## 目錄內容
 {:.no_toc}
 
--   [How does mass spectrometry work?](#how-does-mass-spectrometry-work)
+-   [質譜的作用原理](#how-does-mass-spectrometry-work)
 -   [Accessing data](#accessing-data)
     -   [From the ProteomeXchange database](#from-the-proteomexchange-database)
     -   [Data packages](#data-packages)
