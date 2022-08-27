@@ -1,86 +1,87 @@
-## 目录
+## Contents
 {:.no_toc}
 
--   [R中的原始数据是什么](#what-is-raw-data-in-r)
-    -   [`Spectra` 类](#the-spectra-class)
-    -   [`来自 mzML 文件的 Spectra类`](#spectra-from-mzml-files)
-    -   [后端](#backends)
--   [质谱原始数据的可视化](#visualisation-of-raw-ms-data)
--   [原始数据处理和 操作](#raw-data-processing-and-manipulation)
--   [关于效率的说明](#a-note-on-efficiency)
-    -   [后端](#backends-1)
-    -   [并行处理](#parallel-processing)
-    -   [延迟计算](#lazy-evaluation)
-{:toc} \# 质谱原始数据 {#sec-raw}
+-   [What is raw data in R](#what-is-raw-data-in-r)
+    -   [The `Spectra` class](#the-spectra-class)
+    -   [`Spectra` from mzML files](#spectra-from-mzml-files)
+    -   [Backends](#backends)
+-   [Visualisation of raw MS data](#visualisation-of-raw-ms-data)
+-   [Raw data processing and manipulation](#raw-data-processing-and-manipulation)
+-   [A note on efficiency](#a-note-on-efficiency)
+    -   [Backends](#backends-1)
+    -   [Parallel processing](#parallel-processing)
+    -   [Lazy evaluation](#lazy-evaluation)
+{:toc} \# Raw MS data {#sec-raw}
 
-在本节中，我们将学习如何以 常用的开放格式之一(`mzML`， `mzXML` 和 `netCDF`) 读取原始数据到R环境.
+In this section, we will learn how to read raw data in one of the commonly used open formats (`mzML`, `mzXML` and `netCDF`) into R.
 
-    |数据类型|文件格式|数据结构|软件包|
+    |Data type  |File format   |Data structure               |Package           |
     |:----------|:-------------|:----------------------------|:-----------------|
-    |原始|mzXML或mzML |mzRpwiz 或mzRramp           |mzR               |
-    |原始|mzXML 或 mzML |MassSpectrum 对象列表|MALDIquantForeign |
-    |原始|mzXML 或 mzML |MSnExp                       |MSnbase           |
-    |峰列表 |mgf           |MSnExp                       |MSnbase           |
-    |原始|多个|Spectra                      |Spectra           |
+    |Raw        |mzXML or mzML |mzRpwiz or mzRramp           |mzR               |
+    |Raw        |mzXML or mzML |list of MassSpectrum objects |MALDIquantForeign |
+    |Raw        |mzXML or mzML |MSnExp                       |MSnbase           |
+    |Peak lists |mgf           |MSnExp                       |MSnbase           |
+    |Raw        |several       |Spectra                      |Spectra           |
 
-### R中的原始数据是什么
+### What is raw data in R
 
-当我们操作复杂的数据时，我们需要有一种方法来简化复杂的数据。
+When we manipulate complex data, we need a way to abstract it.
 
-简化可以使我们不必知道数据的所有细节 **及** 其关联的元数据。 在 R中, 我们认为MS 数据 如下面的图所示 (来源 \[@Gatto:2020\]): 一个元数据 表和一组原始旁图。 这允许我们依靠一些 易于记住的约定来使一些单调和重复的任务 简单并且能够轻松地完成更复杂的事情。 简化 提供了一个更顺畅的方法使用常见的 模式处理复杂的数据。
+The abstraction saves us from having to know about all the details of that data **and** its associated metadata. In R, we think of MS data as illustrated on the figure below (taken from \[@Gatto:2020\]): a metadata table and a set of raw spectra. This allows to rely on a few easy-to-remember conventions to make mundane and repetitive tasks trivial and be able to complete more complex things easily. Abstractions provide a smoother approach to handle complex data using common patterns.
 
 <img src="https://github.com/rformassspectrometry/docs/raw/main/img/raw.png" alt="Schematic representation of what is referred to by *raw data*: a collection of mass spectra and a table containing spectrum-level annotations along the lines. Raw data are imported from one of the many community-maintained open standards formats (mzML, mzXML, mzData or ANDI-MS/netCDF)." width="100%" />
 
-<p class="caption">*原始数据*的示意图：大量谱图集和
-依次的谱级注释信息的表格。 原始数据可从
-社区维护的开放标准格式 (mzML,
-mzXML, mzData 或ANDI-MS/netCDF) 之一导入。</p>
+<p class="caption">Schematic representation of what is referred to by
+*raw data*: a collection of mass spectra and a table containing
+spectrum-level annotations along the lines. Raw data are imported from
+one of the many community-maintained open standards formats (mzML,
+mzXML, mzData or ANDI-MS/netCDF).</p>
 
-#### `Spectra` 类
+#### The `Spectra` class
 
-我们将使用 [`Spectra`](https://rformassspectrometry.github.io/Spectra/) 软件包作为 对原质谱仪数据的简化。
+We are going to use the [`Spectra`](https://rformassspectrometry.github.io/Spectra/) package as an abstraction to raw mass spectrometry data.
 
     library(Spectra)
 
-`Spectra` 是 [R 质谱仪 倡议](https://www.rformassspectrometry.org/) 的一部分。 Spectra包定义了用于原始数据提取的 `Spectra` 类来操作MS 数据和元数据。 了解数据结构的最佳方式是 手工创建一个数据结构。
+`Spectra` is part of the [R for Mass Spectrometry initiative](https://www.rformassspectrometry.org/). It defines the `Spectra` class that is used as a raw data abstraction, to manipulate MS data and metadata. The best way to learn about a data structure is to create one by hand.
 
-让我们创建一个含有MS 水平、保留时间、 m/z 以及2个谱的强度 `DataFrame`[1] ：
+Let’s create a `DataFrame`[1] containing MS levels, retention time, m/z and intensities for 2 spectra:
 
     spd <- DataFrame(msLevel = c(1L, 2L), rtime = c(1.1, 1.2))
     spd$mz <- list(c(100, 103.2, 104.3, 106.5), c(45.6, 120.4, 190.2))
     spd$intensity <- list(c(200, 400, 34.2, 17), c(12.3, 15.2, 6.8))
     spd
     
-    ## 2行4列的DataFrame
-    ##     质谱水平  保留时间rtime                    mz             强度intensity
+    ## DataFrame with 2 rows and 4 columns
+    ##     msLevel     rtime                    mz             intensity
     ##   <integer> <numeric>                <list>                <list>
     ## 1         1       1.1 100.0,103.2,104.3,... 200.0,400.0, 34.2,...
     ## 2         2       1.2      45.6,120.4,190.2        12.3,15.2, 6.8
 
-现在将此 `DataFrame` 转换为 `Spectra` 对象：
+And now convert this `DataFrame` into a `Spectra` object:
 
     sp0 <- Spectra(spd)
     sp0
     
-    ## 基于 MsBackendDataFrame 后端的2个谱的MSn 数据(Spectra) :
+    ## MSn data (Spectra) with 2 spectra in a MsBackendDataFrame backend:
     ##     msLevel     rtime scanIndex
     ##   <integer> <numeric> <integer>
     ## 1         1       1.1        NA
     ## 2         2       1.2        NA
     ##  ... 16 more variables/columns.
 
-##### 练习
+##### Exercise
 
-探索新创建的对象
+Explore the newly created object using
 
--   `spectraVariables` 提取所有元数据变量。
--   `spectraData` 来提取所有元数据。
--   `peaksData` 以提取包含原始数据的列表。
--   `[` 用于创建子集。
+-   `spectraVariables` to extract all the metadata variables.
+-   `spectraData` to extract all the metadata.
+-   `peaksData` to extract a list containing the raw data.
+-   `[` to create subsets.
 
-#### 自 mzML 文件的` Spectra类`
+#### `Spectra` from mzML files
 
-现在让我们使用先前下载 的 包括可用的 mzML 数据的`mzf` 文件创建一个新对象。
+Let’s now create a new object using the mzML data previously downloaded and available in the `mzf` file.
 
     mzf
     
@@ -108,33 +109,33 @@ mzXML, mzData 或ANDI-MS/netCDF) 之一导入。</p>
     ## file(s):
     ## 1922b2f30fe_TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01-20141210.mzML
 
-##### 练习
+##### Exercise
 
--   重复上面的数据操作。
--   使用 `length()` 检查对象中包含的扫描数量。
--   请注意在 控制台中显示对象时第一行的差异。 我们稍后将回到这个后端的想法。
+-   Repeat the data manipulations above.
+-   Check the number of scans in the object with `length()`.
+-   Note the difference in the first line when showing the object in the console. We will get back to this idea of backend later.
 
-`Spectra` 对象中的质谱数据可以被视为一个个谱图的列表 及与每个谱图相关联的一组变量 。 除了 *核心* 谱图变量(例如MS level 或保留时间) 之外，可将任意数量的可选变量 分配到一个谱图。 核心谱图变量都有自己的 存取器方法，并且保证一个值被它返回(如果信息不可用，返回 `NA`)。 核心变量和他们的 数据类型是(按字母顺序排列)：
+Mass spectrometry data in `Spectra` objects can be thought of as a list of individual spectra, with each spectrum having a set of variables associated with it. Besides *core* spectra variables (such as MS level or retention time) an arbitrary number of optional variables can be assigned to a spectrum. The core spectra variables all have their own accessor method and it is guaranteed that a value is returned by it (or `NA` if the information is not available). The core variables and their data type are (alphabetically ordered):
 
--   *acqutionNum* `整数(1)`: 在 MS 运行过程中获取一个 谱图的索引。
--   *centroided* `逻辑变量(1)`: 谱图是否是profile 或 中心化centroid 模式。
--   *collisionEnergy* `数值(1)`: 用于创建 MSn 谱图的碰撞能量。
--   *dataOrigin* `字符 (1)`: 谱图数据的 *来源*, 例如它是从 mzML 文件中读取的。
--   *dataStorage* `字符 (1)`: 谱图数据的 (当前) 存储位置。 此值取决于用于处理和 提供数据的后端。 对于如`MsBackendDataFrame`的  *内存* 后端， 这将是 `"<memory>"`, 对于如 `MsBackendHdf5Peaks`的磁盘上的 后端， 它将是存储谱图峰数据的HDF5 文件的名称。
--   *intensity* `数值`: 谱峰的强度值。
--   *isolationWindowLowerMz* `数值 (1)`: 用于测量(MSn) 频谱的分离窗口m/z下界。
--   *isolationWindowTargetMz* `数字 (1)`: 测量谱段的 分离窗口的 目标m/z 。
+-   *acquisitionNum* `integer(1)`: the index of acquisition of a spectrum during a MS run.
+-   *centroided* `logical(1)`: whether the spectrum is in profile or centroid mode.
+-   *collisionEnergy* `numeric(1)`: collision energy used to create an MSn spectrum.
+-   *dataOrigin* `character(1)`: the *origin* of the spectrum’s data, e.g. the mzML file from which it was read.
+-   *dataStorage* `character(1)`: the (current) storage location of the spectrum data. This value depends on the backend used to handle and provide the data. For an *in-memory* backend like the `MsBackendDataFrame` this will be `"<memory>"`, for an on-disk backend such as the `MsBackendHdf5Peaks` it will be the name of the HDF5 file where the spectrum’s peak data is stored.
+-   *intensity* `numeric`: intensity values for the spectrum’s peaks.
+-   *isolationWindowLowerMz* `numeric(1)`: lower m/z for the isolation window in which the (MSn) spectrum was measured.
+-   *isolationWindowTargetMz* `numeric(1)`: the target m/z for the isolation window in which the (MSn) spectrum was measured.
 -   *isolationWindowUpperMz* `numeric(1)`: upper m/z for the isolation window in which the (MSn) spectrum was measured.
--   *mslevel* `整数(1)`: 谱段的 MS 级。
--   *mz* `数字`: 谱段峰值的 m/z 值。
--   *polarity* `整数(1)`: 频谱的极化(`0` 和 `` 分别表示负和正极）。
+-   *msLevel* `integer(1)`: the MS level of the spectrum.
+-   *mz* `numeric`: the m/z values for the spectrum’s peaks.
+-   *polarity* `integer(1)`: the polarity of the spectrum (`0` and `1` representing negative and positive polarity, respectively).
 -   *precScanNum* `integer(1)`: the scan (acquisition) number of the precursor for an MSn spectrum.
--   *precursorCharge* `整数(1)`: 一个 MSn 谱图的母离子电荷.
--   *precursorIntensity* `数字(1)`: 一个MSn 谱图母离子的强度 。
--   *precursorMz* `数值(1)`: 一个MSn谱的母离子m/z
--   *rtime* `数字 (1)`: 一个谱图的保留时间。
--   *scanIndex* `整数(1)`: 在一个 (raw) 文件内的谱图索引。
--   *smoothed* `逻辑(1)`: 谱图是否被平滑。
+-   *precursorCharge* `integer(1)`: the charge of the precursor of an MSn spectrum.
+-   *precursorIntensity* `numeric(1)`: the intensity of the precursor of an MSn spectrum.
+-   *precursorMz* `numeric(1)`: the m/z of the precursor of an MSn spectrum.
+-   *rtime* `numeric(1)`: the retention time of a spectrum.
+-   *scanIndex* `integer(1)`: the index of a spectrum within a (raw) file.
+-   *smoothed* `logical(1)`: whether the spectrum was smoothed.
 
 For details on the individual variables and their getter/setter function see the help for `Spectra` (`?Spectra`). Also note that these variables are suggested, but not required to characterize a spectrum. Also, some only make sense for MSn, but not for MS1 spectra.
 
