@@ -1,8 +1,8 @@
 ## Contents
 {:.no_toc}
 
--   [What is raw data in R](#what-is-raw-data-in-r)
-    -   [The `Spectra` class](#the-spectra-class)
+-   [Rにおける生データとは?](#what-is-raw-data-in-r)
+    -   [`Spectra` クラス](#the-spectra-class)
     -   [`Spectra` from mzML files](#spectra-from-mzml-files)
     -   [Backends](#backends)
 -   [Visualisation of raw MS data](#visualisation-of-raw-ms-data)
