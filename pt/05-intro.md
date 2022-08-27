@@ -11,7 +11,7 @@
 
 A espectrometria de massa (EM) é uma tecnologia que *separa as* moléculas carregadas (iões) com base na sua relação massa/carga (M/Z). É frequentemente acoplada à cromatografia (liquid LC, mas também pode ser baseada em gás GC). O tempo que um analito demora a eluir da coluna de cromatografia é o tempo de retenção (*retention time*.)
 
-<img src="https://github.com/rformassspectrometry/docs/raw/main/img/chromatogram.png" alt="A chromatogram, illustrating the total amount of analytes over the retention time." width="100%" />
+<img src="https://github.com/rformassspectrometry/docs/raw/main/img/chromatogram.png" alt="Um cromatograma, ilustrando a quantidade total de analitos ao longo do tempo de retenção." width="100%" />
 
 <p class="caption">Um chromatograma, ilustrando a quantidade total de analitos sobre o tempo de retenção.</p>
 
@@ -27,52 +27,45 @@ Muitas vezes, os iões são sujeitos a mais do que uma única ronda de MS. Depoi
 
 Na MSMS (ou MS2), as definições do espectrómetro de massa são definidas automaticamente para seleccionar um certo número de picos de MS1 (por exemplo 20)[1]. Uma vez seleccionado um intervalo M/Z estreito (correspondente a um pico de alta intensidade, um peptídeo, e algum ruído de fundo), ele é fragmentado (utilizando, por exemplo, a dissociação induzida pela colisão (CID), dissociação colisória de alta energia (HCD) ou dissociação por transferência de electrões (ETD)). Os fragmentos de iões são então eles próprios separados no analisador para produzir um espectro MS2. O padrão de fragmento de ião único pode então ser usado para inferir a sequência de peptídeo usando nova sequenciação (quando o espectro é de qualidade suficientemente elevada) ou utilizando um motor de busca como, por exemplo, Mascot, MSGF+, ..., que se adequará ao espectro experimental a espectros teóricos observado (ver detalhes abaixo).
 
-<img src="https://github.com/rformassspectrometry/docs/raw/main/img/SchematicMS2.png" alt="Schematics of a mass spectrometer and two rounds of MS." width="100%" />
+<img src="https://github.com/rformassspectrometry/docs/raw/main/img/SchematicMS2.png" alt="Esquema de um espectrómetro de massa e duas rondas de MS." width="100%" />
 
 <p class="caption">Esquema de um espectrómetro de massa e duas rondas de MS.</p>
 
-A animação abaixo mostra como 25 iões diferentes (ou seja, com diferentes valores de M/Z) são separados ao longo da análise de MS e são eventualmente detectados (ou seja, quantificados). The final frame shows the hypothetical spectrum.
+A animação abaixo mostra como 25 iões diferentes (ou seja, com diferentes valores de M/Z) são separados ao longo da análise de MS e são eventualmente detectados (ou seja, quantificados). A imagem final mostra o espectro hipotético.
 
-<img src="https://github.com/rformassspectrometry/docs/raw/main/img/mstut.gif" alt="Separation and detection of ions in a mass spectrometer." width="100%" />
+<img src="https://github.com/rformassspectrometry/docs/raw/main/img/mstut.gif" alt="Separação e detecção de iões num espectrómetro de massa." width="100%" />
 
-<p class="caption">Separation and detection of ions in a mass
-spectrometer.</p>
+<p class="caption">Separação e detecção de iões num espectrómetro de massa.</p>
 
-The figures below illustrate the two rounds of MS. The spectrum on the left is an MS1 spectrum acquired after 21 minutes and 3 seconds of elution. 10 peaks, highlited by dotted vertical lines, were selected for MS2 analysis. The peak at M/Z 460.79 (488.8) is highlighted by a red (orange) vertical line on the MS1 spectrum and the fragment spectra are shown on the MS2 spectrum on the top (bottom) right figure.
+Os figuras abaixo ilustram as duas rondas de MS. O espectro à esquerda é um espectro MS1 adquirido após 21 minutos e 3 segundos de eluição. 10 picos, realçados por linhas verticais pontilhadas, foram seleccionados para análise MS2. O pico com M/Z 460,79 (488,8) é realçado por uma linha vertical vermelha (laranja) no espectro MS1 e os espectros dos fragmentos são mostrado no espectro MS2 na figura superior (inferior) à direita.
 
-<img src="https://github.com/rformassspectrometry/docs/raw/main/img/MS1-MS2-spectra.png" alt="Parent ions in the MS1 spectrum (left) and two sected fragment ions MS2 spectra (right)" width="100%" />
+<img src="https://github.com/rformassspectrometry/docs/raw/main/img/MS1-MS2-spectra.png" alt="Iões progenitores no espectro MS1 (esquerda) e dois espectros de
+fragmentos de iões de MS2 seccionados (direita)" width="100%" />
 
-<p class="caption">Parent ions in the MS1 spectrum (left) and two sected
-fragment ions MS2 spectra (right)</p>
+<p class="caption">Iões progenitores no espectro MS1 (esquerda) e dois espectros de
+fragmentos de iões de MS2 seccionados (direita)</p>
 
-The figures below represent the 3 dimensions of MS data: a set of spectra (M/Z and intensity) of retention time, as well as the interleaved nature of MS1 and MS2 (and there could be more levels) data.
+Os números abaixo representam as 3 dimensões dos dados de MS: um conjunto de espectros (M/Z e intensidade) do tempo de retenção, e  a natureza intercalada dos dados de MS1 e MS2 (e poderia haver mais níveis).
 
-<img src="https://github.com/rformassspectrometry/docs/raw/main/img/F02-3D-MS1-scans-400-1200-lattice.png" alt="MS1 spectra over retention time." width="100%" />
-<p class="caption">MS1 spectra over retention time.</p>
+<img src="https://github.com/rformassspectrometry/docs/raw/main/img/F02-3D-MS1-scans-400-1200-lattice.png" alt="Espectros MS1 sobre o tempo de retenção." width="100%" />
+<p class="caption">O espectro MS1 sobre o tempo de retenção.</p>
 
-<img src="https://github.com/rformassspectrometry/docs/raw/main/img/F02-3D-MS1-MS2-scans-100-1200-lattice.png" alt="MS2 spectra interleaved between two MS1 spectra." width="100%" />
-<p class="caption">MS2 spectra interleaved between two MS1 spectra.</p>
+<img src="https://github.com/rformassspectrometry/docs/raw/main/img/F02-3D-MS1-MS2-scans-100-1200-lattice.png" alt="Os espectros MS2 intercalados entre dois espectros MS1." width="100%" />
+<p class="caption">Os espectros MS2 intercalados entre dois espectros MS1.</p>
 
-### Accessing data
+### Acesso aos dados
 
-#### From the ProteomeXchange database
+#### A partir da base de dados ProteomeXchange
 
-MS-based proteomics data is disseminated through the [ProteomeXchange](http://www.proteomexchange.org/) infrastructure, which centrally coordinates submission, storage and dissemination through multiple data repositories, such as the [PRoteomics IDEntifications (PRIDE)](https://www.ebi.ac.uk/pride/archive/) database at the EBI for mass spectrometry-based experiments (including quantitative data, as opposed as the name suggests), [PASSEL](http://www.peptideatlas.org/passel/) at the ISB for Selected Reaction Monitoring (SRM, i.e. targeted) data and the [MassIVE](http://massive.ucsd.edu/ProteoSAFe/static/massive.jsp) resource. These data can be downloaded within R using the *[rpx](https://bioconductor.org/packages/3.15/rpx)* package.
+Os dados proteómicos baseados em EM são divulgados através das infra-estruturas [ProteomeXchange](http://www.proteomexchange.org/), que coordenam centralmente a submissão, armazenamento e disseminação através de múltiplos repositórios de dados, tais como as base de dados [PRoteomics IDEntifications (PRIDE)](https://www.ebi.ac.uk/pride/archive/) na EBI para ensaios baseados na espectrometria de massa (incluindo dados quantitativos, contrariamente ao que o nome sugere), [PASSEL](http://www.peptideatlas.org/passel/) no ISB para Monitorização Seleccionada das Reacções (SRM, ou seja, direccionada) e os dados dos recursos [MassIVE](http://massive.ucsd.edu/ProteoSAFe/static/massive.jsp). Estes dados podem ser descarregados dentro do R usando o pacote *[rpx](https://bioconductor.org/packages/3.15/rpx).*
 
     library("rpx")
 
-Using the unique `PXD000001` identifier, we can retrieve the relevant metadata that will be stored in a `PXDataset` object. The names of the files available in this data can be retrieved with the `pxfiles` accessor function.
+Usando o identificador único `PXD000001`, podemos recuperar o identificador de metadados relevante que serão armazenados num objecto `PXDataset`. Os nomes dos os ficheiros disponíveis nestes dados podem ser obtidos com a função `pxfiles`.
 
     px <- PXDataset("PXD000001")
     
-    ## Loading PXD000001 from cache.
-    
     px
-    
-    ## Project PXD000001 with 10 files
-    ## 
-    
-    ## Resource ID BFC1 in cache in /home/rstudio/.cache/R/rpx.
     
     ##  [1] 'erwinia_carotovora.fasta' ... [10] 'PRIDE_Exp_Complete_Ac_22134.pride.mgf.gz'
     ##  Use 'pxfiles(.)' to see all files.
@@ -91,7 +84,7 @@ Using the unique `PXD000001` identifier, we can retrieve the relevant metadata t
     ##  [remote] PRIDE_Exp_Complete_Ac_22134.pride.mztab.gz
     ##  [remote] PRIDE_Exp_Complete_Ac_22134.pride.mgf.gz
 
-Other metadata for the `px` data set:
+Outros metadados para o conjunto de dados `px`:
 
     pxtax(px)
     
@@ -105,7 +98,7 @@ Other metadata for the `px` data set:
     
     ## [1] "Gatto L, Christoforou A; Using R and Bioconductor for proteomics data analysis., Biochim Biophys Acta, 2013 May 18, doi:10.1016/j.bbapap.2013.04.032 PMID:23692960"
 
-Data files can then be downloaded with the `pxget` function. Below, we retrieve the raw data file. The file is downloaded[2] in the working directory and the name of the file is return by the function and stored in the `mzf` variable for later use [3].
+Os ficheiros de dados podem então ser descarregados com a função `pxget`. Abaixo, recuperamos o ficheiro de dados em bruto. O ficheiro é descarregado[2] no ambiente de trabalho e o nome do ficheiro é devolvido pela função e armazenado na variável `mzf` para uso posterior [3].
 
     fn <- "TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01-20141210.mzML"
     mzf <- pxget(px, fn)
@@ -116,9 +109,9 @@ Data files can then be downloaded with the `pxget` function. Below, we retrieve 
     
     ## [1] "/home/rstudio/.cache/R/rpx/1922b2f30fe_TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01-20141210.mzML"
 
-#### Data packages
+#### Pacotes de dados
 
-Some data are also distributed through dedicated packages. The *[msdata](https://bioconductor.org/packages/3.15/msdata)*, for example, provides some general raw data files relevant for both proteomics and metabolomics.
+Alguns dados são também distribuídos através de pacotes dedicados. O *[msdata](https://bioconductor.org/packages/3.15/msdata)*, por exemplo, fornece alguns ficheiros gerais de dados em bruto relevantes tanto para a proteómica como para metabolómica.
 
     library("msdata")
     ## proteomics raw data
@@ -137,13 +130,11 @@ Some data are also distributed through dedicated packages. The *[msdata](https:/
     
     ## quantitative data
     quant()
-    
-    ## [1] "cptac_a_b_peptides.txt"
 
-More often, such *experiment packages* distribute processed data; an example of such is the *[pRolocdata](https://bioconductor.org/packages/3.15/pRolocdata)* package, that offers quantitative proteomics data.
+Mais frequentemente, tais * pacotes de experimentação* distribuem dados processados; um exemplo de tal é o pacote *[pRolocdata](https://bioconductor.org/packages/3.15/pRolocdata)*, que oferece dados proteómicos quantitativos.
 
-[1] Here, we will focus on data dependent acquisition (DDA), where MS1 peaks are selected. In data independent acquisition (DIA), all peaks in the MS1 spectrum are fragmented.
+[1] Aqui, centrar-nos-emos na aquisição dependente de dados (DDA), onde os picos MS1 são seleccionados. Na aquisição independente de dados (DIA), todos os picos em no espectro MS1 são fragmentados.
 
-[2] If the file is already available, it is not downloaded a second time.
+[2] Se o ficheiro já estiver disponível, não é descarregado uma segunda vez.
 
-[3] This and other files are also availabel in the `msdata` package, described below
+[3] Este e outros ficheiros também estão disponíveis no pacote `msdata`, descrito abaixo
