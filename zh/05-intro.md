@@ -1,29 +1,30 @@
-## 目錄內容
+## Contents
 {:.no_toc}
 
--   [質譜法的作用原理](#how-does-mass-spectrometry-work)
--   [取得數據](#accessing-data)
-    -   [ProteomeXchange 資料庫](#from-the-proteomexchange-database)
-    -   [資料套件](#data-packages)
-{:toc} \# 介紹{#sec-msintro}
+-   [How does mass spectrometry work?](#how-does-mass-spectrometry-work)
+-   [Accessing data](#accessing-data)
+    -   [From the ProteomeXchange database](#from-the-proteomexchange-database)
+    -   [Data packages](#data-packages)
+{:toc} \# Introduction {#sec-msintro}
 
-### 質譜法如何作用?
+### How does mass spectrometry work?
 
-質譜(Mass Spectrometry, MS)是一種基於質量-電荷比(M/Z)的技術，能夠*區分*帶電分子(離子)。 此技術經常與色層分析法(chromatography)連用，可以是液態(liquid LC)或氣態(gas-based GC) 分析物從色譜柱(chromatography column)分離出來的時間叫做*滯留時間(rention time)*
+Mass spectrometry (MS) is a technology that *separates* charged molecules (ions) based on their mass to charge ratio (M/Z). It is often coupled to chromatography (liquid LC, but can also be gas-based GC). The time an analyte takes to elute from the chromatography column is the *retention time*.
 
 <img src="https://github.com/rformassspectrometry/docs/raw/main/img/chromatogram.png" alt="A chromatogram, illustrating the total amount of analytes over the retention time." width="100%" />
 
-<p class="caption">質譜結果顯示在滯留時間下的分析物總量</p>
+<p class="caption">A chromatogram, illustrating the total amount of
+analytes over the retention time.</p>
 
-質譜儀(mass spectrometer)由三個要素組成：
+An mass spectrometer is composed of three components:
 
-1.  *離子源(source)*使分子轉為帶電荷的離子：例如，基質輔助雷射解吸/電離(MALDI)和電噴霧電離 (ESI)。
-2.  *質量分析器(analyser)*分離離子： Time of flight (TOF) 或 Orbitrap。
-3.  *偵測器(detector)*用以量化離子。
+1.  The *source*, that ionises the molecules: examples are Matrix-assisted laser desorption/ionisation (MALDI) or electrospray ionisation. (ESI)
+2.  The *analyser*, that separates the ions: Time of flight (TOF) or Orbitrap.
+3.  The *detector* that quantifies the ions.
 
-當使用蛋白質體進行質譜分析時，蛋白質會先經過蛋白酶（例如trypsin）的作用。 In mass shotgun proteomics, 質譜儀分析的物質是胜肽(peptides)。
+When using mass spectrometry for proteomics, the proteins are first digested with a protease such as trypsin. In mass shotgun proteomics, the analytes assayed in the mass spectrometer are peptides.
 
-通常離子會經過多次的MS循環。 經過第一輪的分離，在質譜結果當中顯示的第一個峰(peak)叫做MS1 spectra，代表多個胜肽。 在這個階段，我們能夠掌握關於這些胜肽的唯一訊息是它們的滯留時間和它們的質荷比（我們也可以通過檢查它們的isotope envelope來推斷它們的電荷，即單個isotopye的峰，見下文），這些還不足以推斷他們的身份（即他們的序列）。
+Often, ions are subjected to more than a single MS round. After a first round of separation, the peaks in the spectra, called MS1 spectra, represent peptides. At this stage, the only information we possess about these peptides are their retention time and their mass-to-charge (we can also infer their charge by inspecting their isotopic envelope, i.e the peaks of the individual isotopes, see below), which is not enough to infer their identify (i.e. their sequence).
 
 In MSMS (or MS2), the settings of the mass spectrometer are set automatically to select a certain number of MS1 peaks (for example 20)[1]. Once a narrow M/Z range has been selected (corresponding to one high-intensity peak, a peptide, and some background noise), it is fragmented (using for example collision-induced dissociation (CID), higher energy collisional dissociation (HCD) or electron-transfer dissociation (ETD)). The fragment ions are then themselves separated in the analyser to produce a MS2 spectrum. The unique fragment ion pattern can then be used to infer the peptide sequence using de novo sequencing (when the spectrum is of high enough quality) or using a search engine such as, for example Mascot, MSGF+, …, that will match the observed, experimental spectrum to theoretical spectra (see details below).
 
