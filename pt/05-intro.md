@@ -3,37 +3,35 @@
 
 -   [Como funciona a espectrometria de massa?](#how-does-mass-spectrometry-work)
 -   [Acesso a dados](#accessing-data)
-    -   [Da base de dados ProteomeXChange](#from-the-proteomexchange-database)
-    -   [Packages de dados](#data-packages)
+    -   [Da base de dados ProteomeXchange](#from-the-proteomexchange-database)
+    -   [Pacotes de dados](#data-packages)
 {:toc} \# Introdução {#sec-msintro}
 
 ### Como funciona a espectrometria de massa?
 
-A espectrometria em massa (EM) é uma tecnologia que *separa as* moléculas carregadas (iões) com base na sua relação massa/carga (M/Z). É frequentemente acoplada à cromatografia (liquid LC, mas também pode ser baseada em gás GC). O o tempo que um analito leva a eluir da coluna de cromatografia é o *retention time*.
+A espectrometria de massa (EM) é uma tecnologia que *separa as* moléculas carregadas (iões) com base na sua relação massa/carga (M/Z). É frequentemente acoplada à cromatografia (liquid LC, mas também pode ser baseada em gás GC). O tempo que um analito demora a eluir da coluna de cromatografia é o tempo de retenção (*retention time*.)
 
 <img src="https://github.com/rformassspectrometry/docs/raw/main/img/chromatogram.png" alt="A chromatogram, illustrating the total amount of analytes over the retention time." width="100%" />
 
-<p class="caption">A chromatogram, illustrating the total amount of
-analytes over the retention time.</p>
+<p class="caption">Um chromatograma, ilustrando a quantidade total de analitos sobre o tempo de retenção.</p>
 
-An mass spectrometer is composed of three components:
+Um espectrómetro de massa é composto por três componentes:
 
-1.  The *source*, that ionises the molecules: examples are Matrix-assisted laser desorption/ionisation (MALDI) or electrospray ionisation. (ESI)
-2.  The *analyser*, that separates the ions: Time of flight (TOF) or Orbitrap.
-3.  The *detector* that quantifies the ions.
+1.  A fonte (*source*), que ioniza as moléculas: os exemplos são dessorção/ionização de laser assistida por matriz (MALDI) ou ionização de electrospray. (ESI.)
+2.  O *analyser*, que separa os iões: Tempo do voo (TOF) ou Orbitrap.
+3.  O *detector* que quantifica as iões.
 
-When using mass spectrometry for proteomics, the proteins are first digested with a protease such as trypsin. In mass shotgun proteomics, the analytes assayed in the mass spectrometer are peptides.
+Quando se utiliza a espectrometria de massa para proteómica, as proteínas são previamente digeridas com uma protease como a tripsina. Em proteómica shotgun de massa, os analitos testados no espectrómetro de massa são peptídeos.
 
-Often, ions are subjected to more than a single MS round. After a first round of separation, the peaks in the spectra, called MS1 spectra, represent peptides. At this stage, the only information we possess about these peptides are their retention time and their mass-to-charge (we can also infer their charge by inspecting their isotopic envelope, i.e the peaks of the individual isotopes, see below), which is not enough to infer their identify (i.e. their sequence).
+Muitas vezes, os iões são sujeitos a mais do que uma única ronda de MS. Depois de uma primeira ronda de separação, os picos nos espectros, chamados espectros MS1, representam peptídeos. Nesta fase, a única informação que possuímos sobre estes peptídeos são o seu tempo de retenção e a sua massa/carga (podemos também inferir a sua carga inspeccionando o seu envelope isotópico, ou seja, o picos dos isótopos individuais, ver abaixo), o que não é suficiente para inferir a sua identidade (ou seja, a sua sequência).
 
-In MSMS (or MS2), the settings of the mass spectrometer are set automatically to select a certain number of MS1 peaks (for example 20)[1]. Once a narrow M/Z range has been selected (corresponding to one high-intensity peak, a peptide, and some background noise), it is fragmented (using for example collision-induced dissociation (CID), higher energy collisional dissociation (HCD) or electron-transfer dissociation (ETD)). The fragment ions are then themselves separated in the analyser to produce a MS2 spectrum. The unique fragment ion pattern can then be used to infer the peptide sequence using de novo sequencing (when the spectrum is of high enough quality) or using a search engine such as, for example Mascot, MSGF+, …, that will match the observed, experimental spectrum to theoretical spectra (see details below).
+Na MSMS (ou MS2), as definições do espectrómetro de massa são definidas automaticamente para seleccionar um certo número de picos de MS1 (por exemplo 20)[1]. Uma vez seleccionado um intervalo M/Z estreito (correspondente a um pico de alta intensidade, um peptídeo, e algum ruído de fundo), ele é fragmentado (utilizando, por exemplo, a dissociação induzida pela colisão (CID), dissociação colisória de alta energia (HCD) ou dissociação por transferência de electrões (ETD)). Os fragmentos de iões são então eles próprios separados no analisador para produzir um espectro MS2. O padrão de fragmento de ião único pode então ser usado para inferir a sequência de peptídeo usando nova sequenciação (quando o espectro é de qualidade suficientemente elevada) ou utilizando um motor de busca como, por exemplo, Mascot, MSGF+, ..., que se adequará ao espectro experimental a espectros teóricos observado (ver detalhes abaixo).
 
 <img src="https://github.com/rformassspectrometry/docs/raw/main/img/SchematicMS2.png" alt="Schematics of a mass spectrometer and two rounds of MS." width="100%" />
 
-<p class="caption">Schematics of a mass spectrometer and two rounds of
-MS.</p>
+<p class="caption">Esquema de um espectrómetro de massa e duas rondas de MS.</p>
 
-The animation below show how 25 ions different ions (i.e. having different M/Z values) are separated throughout the MS analysis and are eventually detected (i.e. quantified). The final frame shows the hypothetical spectrum.
+A animação abaixo mostra como 25 iões diferentes (ou seja, com diferentes valores de M/Z) são separados ao longo da análise de MS e são eventualmente detectados (ou seja, quantificados). The final frame shows the hypothetical spectrum.
 
 <img src="https://github.com/rformassspectrometry/docs/raw/main/img/mstut.gif" alt="Separation and detection of ions in a mass spectrometer." width="100%" />
 
