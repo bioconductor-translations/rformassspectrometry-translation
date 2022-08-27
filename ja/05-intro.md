@@ -37,24 +37,23 @@ MSMS（またはMS2）において マススペクトロメーターの設定は
 
 <p class="caption">マススペクトロメーターにおけるイオンの分離と検出</p>
 
-下記の図はMSの2ラウンドを表しています。 The spectrum on the left is an MS1 spectrum acquired after 21 minutes and 3 seconds of elution. 10 peaks, highlited by dotted vertical lines, were selected for MS2 analysis. The peak at M/Z 460.79 (488.8) is highlighted by a red (orange) vertical line on the MS1 spectrum and the fragment spectra are shown on the MS2 spectrum on the top (bottom) right figure.
+下記の図はMSの2ラウンドを表しています。 左側のスペクトラムは溶出の21分3秒後に取得されたMS1のスペクトラムです。 MS2解析には、垂直方向の点線によってハイライトされた10個のピークが選択されました。 M/Z 460.79 (488.8) のピークは、MS1 スペクトル上の赤色 (とオレンジ色) の垂直線で強調表示され、フラグメントスペクトルは 右図の上(と下) の MS2 スペクトルに示されています。
 
 <img src="https://github.com/rformassspectrometry/docs/raw/main/img/MS1-MS2-spectra.png" alt="Parent ions in the MS1 spectrum (left) and two sected fragment ions MS2 spectra (right)" width="100%" />
 
-<p class="caption">Parent ions in the MS1 spectrum (left) and two sected
-fragment ions MS2 spectra (right)</p>
+<p class="caption">MS1スペクトラムにおける親イオン(左) と2つに分断されたフラグメントイオンのMS2スペクトラ(右)</p>
 
-The figures below represent the 3 dimensions of MS data: a set of spectra (M/Z and intensity) of retention time, as well as the interleaved nature of MS1 and MS2 (and there could be more levels) data.
+下記は MS データの 3次元表現です: リテンションタイムのスペクトラのセット(M/Zとインテンシティ) と同時に MS1 と MS2 (もっと多くのレベルになり得ます) のデータの性質を交互に表しています。
 
 <img src="https://github.com/rformassspectrometry/docs/raw/main/img/F02-3D-MS1-scans-400-1200-lattice.png" alt="MS1 spectra over retention time." width="100%" />
-<p class="caption">MS1 spectra over retention time.</p>
+<p class="caption">リテンションタイムにわたるMS1のスペクトラ</p>
 
 <img src="https://github.com/rformassspectrometry/docs/raw/main/img/F02-3D-MS1-MS2-scans-100-1200-lattice.png" alt="MS2 spectra interleaved between two MS1 spectra." width="100%" />
-<p class="caption">MS2 spectra interleaved between two MS1 spectra.</p>
+<p class="caption">2つの MS1 スペクトラ の間に交互に配置された MS2 のスペクトラ</p>
 
-### Accessing data
+### データへのアクセスの仕方
 
-#### From the ProteomeXchange database
+#### ProteomeXchange データベースから
 
 MS-based proteomics data is disseminated through the [ProteomeXchange](http://www.proteomexchange.org/) infrastructure, which centrally coordinates submission, storage and dissemination through multiple data repositories, such as the [PRoteomics IDEntifications (PRIDE)](https://www.ebi.ac.uk/pride/archive/) database at the EBI for mass spectrometry-based experiments (including quantitative data, as opposed as the name suggests), [PASSEL](http://www.peptideatlas.org/passel/) at the ISB for Selected Reaction Monitoring (SRM, i.e. targeted) data and the [MassIVE](http://massive.ucsd.edu/ProteoSAFe/static/massive.jsp) resource. These data can be downloaded within R using the *[rpx](https://bioconductor.org/packages/3.15/rpx)* package.
 
