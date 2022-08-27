@@ -1,46 +1,43 @@
 ## Contents
 {:.no_toc}
 
--   [How does mass spectrometry work?](#how-does-mass-spectrometry-work)
--   [Accessing data](#accessing-data)
-    -   [From the ProteomeXchange database](#from-the-proteomexchange-database)
-    -   [Data packages](#data-packages)
-{:toc} \# Introduction {#sec-msintro}
+-   [どのようにマススペクトロメトリーは機能するのか？](#how-does-mass-spectrometry-work)
+-   [データへのアクセス方法](#accessing-data)
+    -   [ProteomeXchange から](#from-the-proteomexchange-database)
+    -   [データパッケージ でのアクセス](#data-packages)
+{:toc} \# イントロダクション {#sec-msintro}
 
-### How does mass spectrometry work?
+### どのようにマススペクトロメトリーは機能するのか？
 
-Mass spectrometry (MS) is a technology that *separates* charged molecules (ions) based on their mass to charge ratio (M/Z). It is often coupled to chromatography (liquid LC, but can also be gas-based GC). The time an analyte takes to elute from the chromatography column is the *retention time*.
+質量分析法(MS)は、 質量とチャージ比(M/Z)に基づいて帯電した 分子(イオン)を *分離する* 技術です。 それはしばしばクロマトグラフィー (液クロ、またはガスクロ) とカップルで使われます。 測定する物質がクロマトのカラムから溶解するのにかかる時間は *リテンションタイム* と呼ばれます。
 
 <img src="https://github.com/rformassspectrometry/docs/raw/main/img/chromatogram.png" alt="A chromatogram, illustrating the total amount of analytes over the retention time." width="100%" />
 
-<p class="caption">A chromatogram, illustrating the total amount of
-analytes over the retention time.</p>
+<p class="caption">リテンションタイムにわたる測定物質の合計量を示すクロマトグラム。</p>
 
-An mass spectrometer is composed of three components:
+質量分析計は以下の3つの構成要素で構成されています:
 
-1.  The *source*, that ionises the molecules: examples are Matrix-assisted laser desorption/ionisation (MALDI) or electrospray ionisation. (ESI)
-2.  The *analyser*, that separates the ions: Time of flight (TOF) or Orbitrap.
-3.  The *detector* that quantifies the ions.
+1.  *ソース*, 分子をイオン化するもの: 例えば Matrix-assisted laser desorption/ionisation (MALDI) もしくは electrospray ionisation. (ESI)
+2.  *アナライザー*, イオンを分離するもの: Time of flight (TOF) もしくは Orbitrap.
+3.  *検出器* イオンを定量化するもの。
 
-When using mass spectrometry for proteomics, the proteins are first digested with a protease such as trypsin. In mass shotgun proteomics, the analytes assayed in the mass spectrometer are peptides.
+プロテオミクスにマススペクトロメトリーを使う場合、タンパクはトリプシンのようなプロテアーゼでまず分解されます。 ショットガンプロテオミクスにおいては、マススペクトロメトリーで測定される被験物質はペプチドです。
 
-Often, ions are subjected to more than a single MS round. After a first round of separation, the peaks in the spectra, called MS1 spectra, represent peptides. At this stage, the only information we possess about these peptides are their retention time and their mass-to-charge (we can also infer their charge by inspecting their isotopic envelope, i.e the peaks of the individual isotopes, see below), which is not enough to infer their identify (i.e. their sequence).
+多くの場合、イオンは単一のMSラウンド以上になります。 最初のラウンドの分離後、MS1スペクトルと呼ばれるスペクトルのピークは、ペプチドを表します。 この段階では、そのペプチドについて私達が持ちうる情報はリテンションタイムとmass-to-chargeです。 (私達はまたその isotopic envelope を調べることでも charge を推測できます。例えば個々のアイソトープのピークです。) それはペプチドの出自(たとえばその配列)を推測するには不十分です。
 
-In MSMS (or MS2), the settings of the mass spectrometer are set automatically to select a certain number of MS1 peaks (for example 20)[1]. Once a narrow M/Z range has been selected (corresponding to one high-intensity peak, a peptide, and some background noise), it is fragmented (using for example collision-induced dissociation (CID), higher energy collisional dissociation (HCD) or electron-transfer dissociation (ETD)). The fragment ions are then themselves separated in the analyser to produce a MS2 spectrum. The unique fragment ion pattern can then be used to infer the peptide sequence using de novo sequencing (when the spectrum is of high enough quality) or using a search engine such as, for example Mascot, MSGF+, …, that will match the observed, experimental spectrum to theoretical spectra (see details below).
+MSMS（またはMS2）において マススペクトロメーターの設定は、 自動的にMS1のピーク数(例えば 20) を選択するように設定されます[1]。 一旦 M/Z の狭いレンジが選択されたら(一つの高いインテンシティのピーク、ペプチド、そしていくつかのバックグラウンドノイズに対応するもの)、 それはフラグメント化されます。(例えば collision-induced dissociation (CID)、higher energy collisional dissociation (HCD)、もしくはelectron-transfer dissociation (ETD) を用いて。) その後、フラグメントイオンは分析器 で分離され、MS2スペクトルを生みます。 ユニークなフラグメントイオン化パターンは de novo シーケンシングを用いた、もしくは Mascot、MSGF+、… のようなサーチエンジンを用いたペプチド配列を推測するのに用いられ、それは観測された実験のスペクトラムを理論的なスペクトラムに対応付けられます (下記参照)。
 
 <img src="https://github.com/rformassspectrometry/docs/raw/main/img/SchematicMS2.png" alt="Schematics of a mass spectrometer and two rounds of MS." width="100%" />
 
-<p class="caption">Schematics of a mass spectrometer and two rounds of
-MS.</p>
+<p class="caption">マススペクトロメーターとMSの2ラウンドの概要。</p>
 
-The animation below show how 25 ions different ions (i.e. having different M/Z values) are separated throughout the MS analysis and are eventually detected (i.e. quantified). The final frame shows the hypothetical spectrum.
+以下のアニメーションは、25個のイオン (すなわち異なる M/Z の値を持つもの) がどのように異なるかを示しています。 それらは、MS分析を通じて分離され、最終的に検出され(すなわち定量化され)ます。 アニメーションの最後のフレームは仮定のスペクトラムを示しています。
 
 <img src="https://github.com/rformassspectrometry/docs/raw/main/img/mstut.gif" alt="Separation and detection of ions in a mass spectrometer." width="100%" />
 
-<p class="caption">Separation and detection of ions in a mass
-spectrometer.</p>
+<p class="caption">マススペクトロメーターにおけるイオンの分離と検出</p>
 
-The figures below illustrate the two rounds of MS. The spectrum on the left is an MS1 spectrum acquired after 21 minutes and 3 seconds of elution. 10 peaks, highlited by dotted vertical lines, were selected for MS2 analysis. The peak at M/Z 460.79 (488.8) is highlighted by a red (orange) vertical line on the MS1 spectrum and the fragment spectra are shown on the MS2 spectrum on the top (bottom) right figure.
+下記の図はMSの2ラウンドを表しています。 The spectrum on the left is an MS1 spectrum acquired after 21 minutes and 3 seconds of elution. 10 peaks, highlited by dotted vertical lines, were selected for MS2 analysis. The peak at M/Z 460.79 (488.8) is highlighted by a red (orange) vertical line on the MS1 spectrum and the fragment spectra are shown on the MS2 spectrum on the top (bottom) right figure.
 
 <img src="https://github.com/rformassspectrometry/docs/raw/main/img/MS1-MS2-spectra.png" alt="Parent ions in the MS1 spectrum (left) and two sected fragment ions MS2 spectra (right)" width="100%" />
 
